@@ -1,26 +1,555 @@
-@import "tailwindcss";
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Colors */
+  --theme-color: #0d73ad;
+  --secondary-theme-color: #e2f7f3;
+
+  /* Light mode colors */
+  --primary-color: #f7fafc;
+  --secondary-color: #e2e8f0;
+  --accent-color: #a0aec0;
+  --text-color: #1a202c;
+  --light-text-color: #4a5568;
+  --bg-color: #ffffff;
+  --light-bg-color: #f7fafc;
+
+  --light-bg-color-rgba: rgba(247, 250, 252, 0.7);
+  /*--image-src: url('/minecraft-background-light.jpg');
+  --sub-image-src: url('/light-sub-bg.png');*/
+
+  --skeleton-color-1: rgba(255, 255, 255, 0);
+  --skeleton-color-2: rgba(80, 80, 80, 0.3);
+
+  /* Dark mode colors */
+  --dark-primary-color: #1c1e24;
+  --dark-secondary-color: #2d3748;
+  --dark-accent-color: #4a5568;
+  --dark-text-color: #ffffff;
+  --dark-light-text-color: #c2c8d3;
+  --dark-bg-color: #191e25;
+  --dark-light-bg-color: #4a5568;
+  --random-color: #5a2a7a;
+
+  /* dark gradient colors */
+  --gradient-color-1: #332241;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.light {
+    /* width */
+    ::-webkit-scrollbar {
+      width: 0.625rem;
+      height: 0.625rem;
+    }
+  
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: var(--accent-color);
+      border: 0.25rem solid var(--primary-color);
+      margin-top: 0.063rem;
+      margin-bottom: 0.063rem;
+    }
+  
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: var(--text-color);
+      border-radius: 1.25rem;
+    }
+  
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--light-text-color);
+    }
+
+    /* Handles bacground gradient */
+    .gradient-background {
+      background: linear-gradient(35deg, var(--secondary-color), var(--primary-color));
+      background-size: 120% 120%;
+      animation: gradient-animation 14s ease infinite;
+    }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.dark {
+  --light-bg-color-rgba: rgba(74, 85, 104, 0.7);
+  --skeleton-color-1: rgba(255, 255, 255, 0);
+  --skeleton-color-2: rgba(255, 255, 255, 0.2);
+
+    /* width */
+    ::-webkit-scrollbar {
+      width: 0.625rem;
+      height: 0.625rem;
+    }
+  
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: var(--accent-color);
+      border: 0.25rem solid var(--dark-primary-color);
+      margin-top: 0.063rem;
+      margin-bottom: 0.063rem;
+    }
+  
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: var(--dark-text-color);
+      border-radius: 1.25rem;
+    }
+  
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--light-text-color);
+    }
+
+    /* Handle background animation */
+    .gradient-background {
+      background: linear-gradient(35deg, var(--dark-secondary-color), var(--dark-primary-color));
+      background-size: 120% 120%;
+      animation: gradient-animation 14s ease infinite;
+    }
+}
+
+.custom-list-style {
+  list-style-type: disc;
+  padding-left: 2.5rem;
+}
+
+.link {
+  position: relative;
+  display: inline-block;
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0.125rem;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.link:hover::after {
+  transform: scaleX(1);
+}
+
+@keyframes grow-shrink {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.logo-animation {
+  animation: grow-shrink 3s ease-in-out infinite;
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-left {
+  animation: 1s ease-out 0s 1 slideInFromLeft;
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-right {
+  animation: 1s ease-out 0s 1 slideInFromRight;
+}
+
+.grow-card {
+  flex: 1 25rem;
+}
+
+.hue-border {
+  border-bottom: 0.125rem solid var(--theme-color);
+  box-shadow: 0 0.313rem 0.313rem -0.313rem var(--theme-color);
+}
+
+.clamp-sm {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+}
+
+.clamp-lg {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+}
+
+@media (min-width: 1024px) {
+
+  /* This is the breakpoint for 'lg' in Tailwind */
+  .card {
+    height: 22rem;
+  }
+
+  .clamp-lg {
+    -webkit-line-clamp: 7;
+  }
+}
+
+.my-node-enter {
+  opacity: 0;
+}
+
+.my-node-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+
+.my-node-exit {
+  opacity: 1;
+}
+
+.my-node-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
+.skeleton {
+  animation: loading 3s infinite;
+  animation-fill-mode: forwards;
+  background: linear-gradient(
+    90deg,
+    var(--skeleton-color-1) 0,
+    var(--skeleton-color-2) 50%,
+    var(--skeleton-color-1) 100%
+  );
+  background-size: 200% 100%;
+  color: transparent;
+}
+
+.shake {
+  animation: shaker 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+@keyframes shaker {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+@keyframes loading {
+  0% {
+    background-position: 100% 50%;
+  }
+  50% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+/* izaak stuff */
+
+.boxShake {
+  /* Start the shake animation and make the animation last for 0.5 seconds */
+  animation: shake 0.5s;
+
+  /* When the animation is finished, start again */
+  animation-iteration-count: 1;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px); }
+  10% { transform: translate(-1px); }
+  20% { transform: translate(-3px); }
+  30% { transform: translate(3px); }
+  40% { transform: translate(1px); }
+  50% { transform: translate(-1px); }
+  60% { transform: translate(-3px); }
+  70% { transform: translate(3px); }
+  80% { transform: translate(-1px); }
+  90% { transform: translate(1px); }
+  100% { transform: translate(1px); }
+}
+
+@keyframes fallingAnimation {
+  0% {
+    transform: translateY(5vh) rotate(0deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.light .falling-letter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateX(-50%);
+  animation: fallingAnimation 3s ease-out;
+  font-size: 24px;
+  color: var(--text-color);
+}
+
+.dark .falling-letter {
+  position: absolute;
+  top: 0;
+  left: 0%;
+  transform: translateX(-50%);
+  animation: fallingAnimation 3s ease-out;
+  font-size: 24px;
+  color: var(--dark-text-color);
+}
+/*
+.theme-button {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  padding: 0.5rem 1rem;
+  border: 1px; //Assuming this is meant to be the border width, add a style like solid or dashed 
+  margin: 1rem; //Adjust the margin as needed 
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.light .theme-button {
+  box-shadow: 0 0 10px rgba(235, 150, 22, 0.8);
+  background-color: #ff9320;
+  color: #000000;
+  border-color: #000000;
+}
+
+.dark .theme-button {
+  box-shadow: 0 0 10px rgba(50, 19, 151, 0.8);
+  background-color: #152c5d; 
+  color: #fcfcfc; 
+  border-color: #ffffff;
+}
+
+.moved-button {
+  position: absolute;
+  top: 100px; //Adjust the value based on your requirements 
+}*/
+
+.clickers-box {
+  position: fixed;
+  top: 10vh;
+  left: -10px;
+  padding: 0.5rem 1rem;
+  border: 1px; 
+  margin: 1rem; 
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.clickers-box:nth-child(1) {
+  top: 12vh;
+}
+
+.clickers-box:nth-child(2) {
+  top: 15vh;
+}
+
+.clickers-box:nth-child(3) {
+  top: 18vh;
+}
+.wordle-bot-text {
+  font-family: consolas;
+  font-size: 18px;
+  position: fixed;
+  top: 10vh;
+  left: 0.5rem; /* Ensures text starts from the left edge */
+  padding: 0.5rem 1rem;
+  border: 1px; 
+  margin: 1rem; 
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-align: left; /* Aligns text to the left */
+}
+.wordle-bot-text-word {
+  font-family: consolas;
+  font-size: 18px;
+  color: #3d9f00;
+  position: fixed;
+  top: 10vh;
+  left: 0.5rem; /* Ensures text starts from the left edge */
+  padding: 0.5rem 1rem;
+  border: 1px; 
+  margin: 1rem; 
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-align: left; /* Aligns text to the left */
+}
+
+.flip {
+  animation: flip 500ms ease forwards;
+}
+
+@keyframes flip {
+  0% {
+    transform: scaleY(1);
+  }
+
+  50% {
+    transform: scaleY(0);
+  }
+
+  100% {
+    transform: scaleY(1);
+  }
+}
+/* matt stuff */
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.main {
+  text-align: center;
+}
+
+.body {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-size: 100px;
+  font-weight: bolder;
+  z-index: 2;
+}
+
+button {
+  padding: 5px 5px;
+  border-radius: 10px;
+  z-index: 1;
+}
+
+#myimage {
+  position: absolute;
+  transition: 0.05s;
+  height: 200px;
+  width: 200px;
+  border: 2px solid black;
+  border-radius: 10px;
+  z-index: 6;
+}
+
+#myimage2 {
+  transition: 0.05s;
+  position: absolute;
+  height: 150px;
+  width: 300px;
+  border: 2px solid black;
+  border-radius: 10px;
+  z-index: 1;
+}
+
+#myimage3 {
+  transition: 0.05s;
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  border: 1px solid black;
+  border-radius: 1px;
+  z-index: 2;
+}
+
+.bounds {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  width: 200px;
+  height: 300px;
+}
+
+@keyframes hor-movement {
+  from {
+    margin-left: 0%;
+  }
+  to {
+    margin-left: 1350%;
+  }
+}
+
+@keyframes ver-movement {
+  from {
+    margin-top: -600%;
+  }
+  to {
+    margin-top: -100%;
+  }
+}
+
+.image {
+  animation-name: hor-movement, ver-movement;
+  animation-duration: 3.141s, 1.414s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: linear;
+}
+.button-shrink {
+  color: #65b5f6;
+  background-color: transparent;
+  border: 1px solid #65b5f6;
+  border-radius: 4px;
+  padding: 0 16px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.button-shrink:hover {
+  transform-origin: top;
+transform: scaleY(0);
 }
