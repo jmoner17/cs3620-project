@@ -68,7 +68,7 @@ This project exists on a branch that is not on the main and will require you to 
 
 If you have not yet cloned this repository:
 ```bash
-git clone https://github.com/jmoner17/wordle-clone
+git clone https://github.com/jmoner17/cs3620-project
 git checkout next-js
 ```
 
