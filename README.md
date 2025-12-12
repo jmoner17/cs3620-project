@@ -6,6 +6,17 @@ BetterHealth is a mental health companion application for college students. User
 ## app interaction
 This app provides a dashboard and metrics page that faculty members can use to enter in new data and as well understand overall student metrics about student alcohol consumption.
 
+## datasheets used
+* https://www.kaggle.com/datasets/spscientist/students-performance-in-exam  
+* https://www.kaggle.com/datasets/shariful07/student-mental-health 
+* https://www.kaggle.com/datasets/uciml/student-alcohol-consumption   
+
+## video link demonstration
+https://www.youtube.com/watch?v=yVceoaoRK7Q 
+
+## ER diagram
+Er diagram file located in root directory under er-diagram-final.drawio
+
 # How to run this project
 
 ## 1. install npm and node globally.
